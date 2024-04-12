@@ -1,31 +1,40 @@
 import flet as ft
+from widgets.word_widget import *
+from widgets.keyboard_widget import *
+from helpers.size_aware import *
 
 
-def main(page: ft.Page):
-  page.title = "Flet counter example"
-  page.vertical_alignment = ft.MainAxisAlignment.CENTER
+class MainApp(ft.UserControl):
+  def __init__(self):
+    super().__init__()
+    self.word_screen = WordScreen()
+    self.keyboard = KeyBoard(key_handler=self.handle_keypress)
 
-  txt_number = ft.TextField(value="0",
-                            text_align=ft.TextAlign.RIGHT,
-                            width=100)
+  # def handle_resize(self, e: ft.canvas.CanvasResizeEvent):
+  #   # instead of e.width for example, you can use the e.control.size namedtuple (e.control.size.width or e.control.size[0])
+  #   self.size = e
+  #   self.update()
 
-  def minus_click(e):
-    txt_number.value = str(int(txt_number.value) - 1)
-    page.update()
+  def handle_keypress(self, data):
+    if data == "Back":
+      self.word_screen.rmChar()
+    elif data == "Enter":
+      # Handle Enter key press
+      pass
+    else:
+      self.word_screen.addChar(data)
 
-  def plus_click(e):
-    txt_number.value = str(int(txt_number.value) + 1)
-    page.update()
+  def build(self):
+    return ft.Column(horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+                     controls=[self.word_screen, self.keyboard])
 
-  page.add(
-      ft.Row(
-          [
-              ft.IconButton(ft.icons.REMOVE, on_click=minus_click),
-              txt_number,
-              ft.IconButton(ft.icons.ADD, on_click=plus_click),
-          ],
-          alignment=ft.MainAxisAlignment.CENTER,
-      ))
+
+async def main(page: ft.Page):
+  page.title = "Wordle Game"
+  page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
+  page.scroll = ft.ScrollMode.ADAPTIVE
+  # create app control and add it to the page
+  page.add(MainApp())
 
 
 ft.app(target=main, view=ft.AppView.WEB_BROWSER, port=8080)
