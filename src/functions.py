@@ -17,7 +17,6 @@ def getRandomWord():
     target = targets[index]
 
   target = target.upper()
-  print(target)
 
   return target
 
@@ -79,9 +78,7 @@ def validateWord(target: str, word: str):
     for index in range (0,len(word_ls)):
       if word_ls[index] in target_ls:
         target_ls.remove(word_ls[index])
-        results[index] = 0
-  
-  print(results)     
+        results[index] = 0    
   
   return(results)
 
