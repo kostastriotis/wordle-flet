@@ -35,7 +35,7 @@ class KeyBoard(ft.UserControl):
 
   def build(self):
     row1 = ft.Row(
-      spacing = 0,
+      spacing = 3,
       width= 750,
       controls=[
         Key("Q", on_click=self.button_clicked),
@@ -51,7 +51,7 @@ class KeyBoard(ft.UserControl):
       ]
     )
     row2 = ft.Row(
-      spacing = 0,
+      spacing = 3,
       width= 750,
       controls=[
         Key("A", on_click=self.button_clicked),
@@ -70,7 +70,7 @@ class KeyBoard(ft.UserControl):
     backKey = Key("Back", on_click=self.button_clicked)
     backKey.expand = 2
     row3 = ft.Row(
-      spacing = 0,
+      spacing = 3,
       width= 750,
       controls=[
         backKey,
