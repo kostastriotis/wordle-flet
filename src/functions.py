@@ -81,8 +81,3 @@ def validateWord(target: str, word: str):
         results[index] = 0    
   
   return(results)
-
-if __name__ == "__main__":
-
-  word = getRandomWord()
-  validateWord(word, "ASEOF")   
