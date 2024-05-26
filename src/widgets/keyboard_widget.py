@@ -9,9 +9,9 @@ class Key(ft.Container):
     super().__init__()
     self.content = ft.Text(size=24,
                            weight=ft.FontWeight.W_700,
-                           color=ft.colors.ON_PRIMARY_CONTAINER)
+                           color=ft.colors.BLACK)
     self.alignment = ft.alignment.center
-    self.bgcolor = ft.colors.PRIMARY_CONTAINER
+    self.bgcolor = ft.colors.GREY_300
     # self.width = 54
     self.height = keyHeight
     self.expand = 1
@@ -23,46 +23,60 @@ class Key(ft.Container):
     self.on_click=on_click
     self.data = key
 
+  def change_color(self):
+    self.content.color = ft.colors.WHITE
+
 
 class KeyBoard(ft.UserControl):
   def __init__(self, key_handler):
     super().__init__()
     self.key_handler = key_handler
+    self.list_of_keys = []
     
   def button_clicked(self, e):
     data = e.control.data
     self.key_handler(data)
 
   def build(self):
+    Q = Key("Q", on_click=self.button_clicked)
+    W = Key("W", on_click=self.button_clicked)
+    E = Key("E", on_click=self.button_clicked)
+    R = Key("R", on_click=self.button_clicked)
+    T = Key("T", on_click=self.button_clicked)
+    Y = Key("Y", on_click=self.button_clicked)
+    U = Key("U", on_click=self.button_clicked)
+    I = Key("I", on_click=self.button_clicked)
+    O = Key("O", on_click=self.button_clicked)
+    P = Key("P", on_click=self.button_clicked)
+    A = Key("A", on_click=self.button_clicked)
+    S = Key("S", on_click=self.button_clicked)
+    D = Key("D", on_click=self.button_clicked)
+    F = Key("F", on_click=self.button_clicked)
+    G = Key("G", on_click=self.button_clicked)
+    H = Key("H", on_click=self.button_clicked)
+    J = Key("J", on_click=self.button_clicked)
+    K = Key("K", on_click=self.button_clicked)
+    L = Key("L", on_click=self.button_clicked)
+    Z = Key("Z", on_click=self.button_clicked)
+    X = Key("X", on_click=self.button_clicked)
+    C = Key("C", on_click=self.button_clicked)
+    V = Key("V", on_click=self.button_clicked)
+    B = Key("B", on_click=self.button_clicked)
+    N = Key("N", on_click=self.button_clicked)
+    M = Key("M", on_click=self.button_clicked)
+    self.list_of_keys = [Q,W,E,R,T,Y,U,I,O,P,A,S,D,F,G,H,J,K,L,Z,X,C,V,B,N,M]
     row1 = ft.Row(
       spacing = 3,
       width= 750,
       controls=[
-        Key("Q", on_click=self.button_clicked),
-        Key("W", on_click=self.button_clicked),
-        Key("E", on_click=self.button_clicked),
-        Key("R", on_click=self.button_clicked),
-        Key("T", on_click=self.button_clicked),
-        Key("Y", on_click=self.button_clicked),
-        Key("U", on_click=self.button_clicked),
-        Key("I", on_click=self.button_clicked),
-        Key("O", on_click=self.button_clicked),
-        Key("P", on_click=self.button_clicked),
+        Q,W,E,R,T,Y,U,I,O,P
       ]
     )
     row2 = ft.Row(
       spacing = 3,
       width= 750,
       controls=[
-        Key("A", on_click=self.button_clicked),
-        Key("S", on_click=self.button_clicked),
-        Key("D", on_click=self.button_clicked),
-        Key("F", on_click=self.button_clicked),
-        Key("G", on_click=self.button_clicked),
-        Key("H", on_click=self.button_clicked),
-        Key("J", on_click=self.button_clicked),
-        Key("K", on_click=self.button_clicked),
-        Key("L", on_click=self.button_clicked),
+        A,S,D,F,G,H,J,K,L
       ]
     )
     enterKey = Key("Enter", on_click=self.button_clicked)
@@ -74,16 +88,11 @@ class KeyBoard(ft.UserControl):
       width= 750,
       controls=[
         backKey,
-        Key("Z", on_click=self.button_clicked),
-        Key("X", on_click=self.button_clicked),
-        Key("C", on_click=self.button_clicked),
-        Key("V", on_click=self.button_clicked),
-        Key("B", on_click=self.button_clicked),
-        Key("N", on_click=self.button_clicked),
-        Key("M", on_click=self.button_clicked),
+        Z,X,C,V,B,N,M,
         enterKey,
       ]
     )
+
     return ft.Column(
         spacing=0,
         # width= 5,

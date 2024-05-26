@@ -1,6 +1,10 @@
 import flet as ft
+import time
 
 boxSide = 72
+correct_color = '#6ca965'
+wrong_position_color = '#c8b653'
+non_existent_color = '#787c7f'
 
 class CharBox(ft.UserControl):
   def updateChar(self, char: str):
@@ -12,23 +16,22 @@ class CharBox(ft.UserControl):
     self.update()
 
   def right_position(self):
-    self.main.bgcolor = ft.colors.GREEN_300
+    self.main.bgcolor = correct_color
     self.text.color = ft.colors.WHITE
     self.main.border = None
     self.update()
   
   def not_existent(self):
-    self.main.bgcolor = ft.colors.RED_300
+    self.main.bgcolor = non_existent_color
     self.text.color = ft.colors.WHITE
     self.main.border = None
     self.update()
 
   def wrong_position(self):
-    self.main.bgcolor = ft.colors.YELLOW_300
+    self.main.bgcolor = wrong_position_color
     self.text.color = ft.colors.WHITE
     self.main.border = None
     self.update()
-
   
 
 
@@ -46,11 +49,22 @@ class CharBox(ft.UserControl):
       width=boxSide,
       height=boxSide,
       # expand=1,
-      margin=3,
+      margin=0,
       # aspect_ratio=1,
       border=ft.border.all(2, ft.colors.GREY_300),
-      border_radius=5)
+      border_radius=5,
+      scale = ft.transform.Scale(scale=1),
+      animate_scale= ft.animation.Animation(50, ft.AnimationCurve.BOUNCE_IN))
     return self.main
+  
+  def animation1(self):
+    self.main.scale = 1.05
+    self.update()
+  
+  def animation2(self):
+    self.main.scale = 1
+    self.update()
+
 
 
 class WordBox(ft.UserControl):
@@ -63,7 +77,12 @@ class WordBox(ft.UserControl):
 
   def addChar(self, char: str):
     if self.current_char < 5:
+      self.char_boxes[self.current_char].animation1()
       self.char_boxes[self.current_char].updateChar(char)
+      self.char_boxes[self.current_char].main.border = ft.border.all(2, ft.colors.GREY)
+      self.char_boxes[self.current_char].update()
+      time.sleep(0.05)
+      self.char_boxes[self.current_char].animation2()
       self.current_char += 1
 
   def rmChar(self):
@@ -85,7 +104,7 @@ class WordBox(ft.UserControl):
 
   def build(self):
     return ft.Row(
-        spacing=0,
+        spacing=3,
         # width= 390, # s:250, l: 390
         alignment=ft.MainAxisAlignment.CENTER,
         expand=1,
@@ -108,6 +127,7 @@ class WordScreen(ft.UserControl):
 
   def addChar(self, char: str):
     self.word_boxes[self.current_row].addChar(char)
+
     # self.update()
 
   def rmChar(self):
@@ -115,4 +135,4 @@ class WordScreen(ft.UserControl):
 
 
   def build(self):
-    return ft.Column(spacing=0, expand=1, controls=self.word_boxes)
+    return ft.Column(spacing=3, expand=1, controls=self.word_boxes)
