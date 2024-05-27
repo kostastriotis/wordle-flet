@@ -16,21 +16,39 @@ class CharBox(ft.UserControl):
     self.update()
 
   def right_position(self):
+    self.main.animate_scale = ft.animation.Animation(0, ft.AnimationCurve.BOUNCE_IN)
+    self.main.scale = 0
     self.main.bgcolor = correct_color
     self.text.color = ft.colors.WHITE
     self.main.border = None
     self.update()
+    self.main.animate_scale = ft.animation.Animation(700, ft.AnimationCurve.BOUNCE_OUT)
+    time.sleep(0.05)
+    self.main.scale = 1
+    self.update()
   
   def not_existent(self):
+    self.main.animate_scale = ft.animation.Animation(0, ft.AnimationCurve.BOUNCE_IN)
+    self.main.scale = 0
     self.main.bgcolor = non_existent_color
     self.text.color = ft.colors.WHITE
     self.main.border = None
     self.update()
+    self.main.animate_scale = ft.animation.Animation(700, ft.AnimationCurve.BOUNCE_OUT)
+    time.sleep(0.05)
+    self.main.scale = 1
+    self.update()
 
   def wrong_position(self):
+    self.main.animate_scale = ft.animation.Animation(0, ft.AnimationCurve.BOUNCE_IN)
+    self.main.scale = 0
     self.main.bgcolor = wrong_position_color
     self.text.color = ft.colors.WHITE
     self.main.border = None
+    self.update()
+    self.main.animate_scale = ft.animation.Animation(700, ft.AnimationCurve.BOUNCE_OUT)
+    time.sleep(0.05)
+    self.main.scale = 1
     self.update()
   
 
