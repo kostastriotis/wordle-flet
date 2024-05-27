@@ -26,7 +26,7 @@ def dictionaryCheck(word: str):
   # Check if the word is in the dictionary.json file.
   # Return True or False.
 
-  f = open('dictionary.json', 'r', encoding='utf-8')
+  f = open('targets.json', 'r', encoding='utf-8')
   dictionary = json.load(f)
   
   
@@ -66,14 +66,13 @@ def validateWord(target: str, word: str):
   
   if index_of_same:
     for j in range (0, len(index_of_same)):
-      word_ls.remove(word_ls[index_of_same[j]-j])
-      target_ls.remove(target_ls[index_of_same[j]-j])
+      del word_ls[index_of_same[j]-j]
+      del target_ls[index_of_same[j]-j]
+      print(word_ls)
     for index in range (0,len(word_ls)):
       if word_ls[index] in target_ls:
         target_ls.remove(word_ls[index])
         results[index_of_diff[index]] = 0
-    
-  
   else:
     for index in range (0,len(word_ls)):
       if word_ls[index] in target_ls:

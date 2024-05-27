@@ -8,13 +8,15 @@ from screen import*
 correct_color = '#6ca965'
 wrong_position_color = '#c8b653'
 non_existent_color = '#787c7f'
+current_language = "English"
 
 
 class MainApp(ft.UserControl):
   def __init__(self):
     super().__init__()
+    self.logo = wordle_logo()
     self.word_screen = WordScreen()
-    self.keyboard = KeyBoard(key_handler=self.handle_keypress)
+    self.keyboard = KeyBoard(key_handler=self.handle_keypress, language= current_language )
     self.main_screen = Screen()
     self.word = getRandomWord()
 
@@ -26,62 +28,111 @@ class MainApp(ft.UserControl):
   def handle_keypress(self, data):
     players_word = ""
     response = []
+    
+    
     if data == "Back":
       self.word_screen.rmChar()
       self.word_screen.word_boxes[self.word_screen.current_row].borders()
+    
+    
     elif data == "Enter":
       if self.word_screen.word_boxes[self.word_screen.current_row].current_char == 5:
         for i in range(0,5):
           players_word += self.word_screen.word_boxes[self.word_screen.current_row].char_boxes[i].text.value
         response = validateWord(self.word, players_word)
+        validate =  dictionaryCheck(players_word)
         print(response)
         print(self.word,players_word)
-        for i in range(0,5):
-          if response[i] == 1: 
-            self.word_screen.word_boxes[self.word_screen.current_row].char_boxes[i].right_position()
-            for key in self.keyboard.list_of_keys:
-              if key.content.value == self.word_screen.word_boxes[self.word_screen.current_row].char_boxes[i].text.value:
-                key.bgcolor = correct_color
-                key.change_color()
-                self.keyboard.update()
+        if validate:
+          for i in range(0,5):
+            if response[i] == 1: 
+              self.word_screen.word_boxes[self.word_screen.current_row].char_boxes[i].right_position()
+            elif response[i] == 0: 
+              self.word_screen.word_boxes[self.word_screen.current_row].char_boxes[i].wrong_position()
+            else:
+              self.word_screen.word_boxes[self.word_screen.current_row].char_boxes[i].not_existent()
+          
+          
+          
+          for i in range(0,5):
+            if response[i] == 1:
+              if current_language == "English" :
+                for key in self.keyboard.list_of_english_keys:
+                  if key.content.value == self.word_screen.word_boxes[self.word_screen.current_row].char_boxes[i].text.value:
+                    key.bgcolor = correct_color
+                    key.change_color()
+                    self.keyboard.update()
+              else:
+                for key in self.keyboard.list_of_greek_keys:
+                  if key.content.value == self.word_screen.word_boxes[self.word_screen.current_row].char_boxes[i].text.value:
+                    key.bgcolor = correct_color
+                    key.change_color()
+                    self.keyboard.update()
 
 
-          elif response[i] == 0: 
-            self.word_screen.word_boxes[self.word_screen.current_row].char_boxes[i].wrong_position()
-            for key in self.keyboard.list_of_keys:
-              if key.content.value == self.word_screen.word_boxes[self.word_screen.current_row].char_boxes[i].text.value:
-                if key.bgcolor != ft.colors.GREY_300:
-                  continue
-                else:
-                  key.bgcolor = wrong_position_color
-                  key.change_color()
-                  self.keyboard.update()
-
-          else:
-            self.word_screen.word_boxes[self.word_screen.current_row].char_boxes[i].not_existent()
-            for key in self.keyboard.list_of_keys:
-              if key.content.value == self.word_screen.word_boxes[self.word_screen.current_row].char_boxes[i].text.value:
-                if key.bgcolor != ft.colors.GREY_300:
-                  continue
-                else:
-                  key.bgcolor = non_existent_color
-                  key.change_color()
-                  self.keyboard.update()
+            elif response[i] == 0: 
+              if current_language == "English" :
+                for key in self.keyboard.list_of_english_keys:
+                  if key.content.value == self.word_screen.word_boxes[self.word_screen.current_row].char_boxes[i].text.value:
+                    if key.bgcolor != ft.colors.GREY_300:
+                      continue
+                    else:
+                      key.bgcolor = wrong_position_color
+                      key.change_color()
+                      self.keyboard.update()
+              else:
+                for key in self.keyboard.list_of_greek_keys:
+                  if key.content.value == self.word_screen.word_boxes[self.word_screen.current_row].char_boxes[i].text.value:
+                    if key.bgcolor != ft.colors.GREY_300:
+                      continue
+                    else:
+                      key.bgcolor = wrong_position_color
+                      key.change_color()
+                      self.keyboard.update()
 
 
-        if self.word_screen.current_row < 5:
-          self.word_screen.current_row += 1 
-      else: 
-        print("The word should consist of 5 characters")
-      # Handle Enter key press
+            else:
+              if current_language == "English" :
+                for key in self.keyboard.list_of_english_keys:
+                  if key.content.value == self.word_screen.word_boxes[self.word_screen.current_row].char_boxes[i].text.value:
+                    if key.bgcolor != ft.colors.GREY_300:
+                      continue
+                    else:
+                      key.bgcolor = non_existent_color
+                      key.change_color()
+                      self.keyboard.update()
+              
+              
+              else:
+                for key in self.keyboard.list_of_greek_keys:
+                  if key.content.value == self.word_screen.word_boxes[self.word_screen.current_row].char_boxes[i].text.value:
+                    if key.bgcolor != ft.colors.GREY_300:
+                      continue
+                    else:
+                      key.bgcolor = non_existent_color
+                      key.change_color()
+                      self.keyboard.update()
+
+
+
+          if self.word_screen.current_row < 5:
+            self.word_screen.current_row += 1 
+        
+        else: 
+          self.main_screen.error_handler.visible = True
+          self.main_screen.error_handler.update()
+          time.sleep(2)
+          self.main_screen.error_handler.visible = False
+          self.main_screen.error_handler.update()
+   
+   
     else:
       self.word_screen.addChar(data)
 
   def build(self):
-    return ft.Column(controls=[self.main_screen, self.word_screen, self.keyboard],
+    return ft.Column(controls=[self.logo, self.main_screen, self.word_screen, self.keyboard,],
                      horizontal_alignment= ft.CrossAxisAlignment.CENTER,
-                     spacing=100, )
-
+                     spacing=50, )
 
 async def main(page: ft.Page):
   page.fonts = {
@@ -89,9 +140,14 @@ async def main(page: ft.Page):
         "Oswald" : "Oswald-Bold.ttf",
         "Poppins-Regular" : "Poppins-Regular.otf",
         "Poppins-Bold" : "Poppins-Bold.otf",
-        "Poppins-Black" : "Poppins-Black.otf"
+        "Poppins-Black" : "Poppins-Black.otf",
+        "Comforta-Regular" : "Comfortaa_Regular.ttf",
+        "Comforta-Bold" : "Comfortaa_Bold.ttf",
+        "Clear-Sans-Regular" : "ClearSans-Regular.ttf",
+        "Clear-Sans-Bold" : "ClearSans-Bold.ttf",
+        "Clear-Sans-Medium" : "ClearSans-Medium.ttf"
         }
-  page.theme = ft.Theme(font_family= "Poppins-Regular")
+  page.theme = ft.Theme(font_family= "Clear-Sans-Medium")
   page.title = "Wordle Game"
   page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
   page.scroll = ft.ScrollMode.ADAPTIVE
