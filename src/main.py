@@ -2,6 +2,7 @@ import flet as ft
 from widgets.word_widget import *
 from widgets.keyboard_widget import *
 from widgets.leaderboard_widget import *
+from widgets.username_input_widget import *
 from helpers.size_aware import *
 from functions import *
 from leaderboard_functions import *
@@ -19,6 +20,7 @@ class MainApp(ft.UserControl):
     self.logo = wordle_logo()
     self.word_screen = WordScreen()
     self.keyboard = KeyBoard(key_handler=self.handle_keypress, language= current_language )
+    self.userbox = UsernameBox()
     self.leaderboard_dict = populate_leaderboard_dict()
     self.leader_board = Leaderboard(self.leaderboard_dict)
     self.main_screen = Screen()
@@ -136,7 +138,7 @@ class MainApp(ft.UserControl):
       self.word_screen.addChar(data)
 
   def build(self):
-    return ft.Column(controls=[self.logo, self.main_screen, self.word_screen, self.keyboard,self.leader_board],
+    return ft.Column(controls=[self.logo, self.main_screen, self.word_screen, self.keyboard,self.userbox,self.leader_board],
                      horizontal_alignment= ft.CrossAxisAlignment.CENTER,
                      spacing=50, )
 
