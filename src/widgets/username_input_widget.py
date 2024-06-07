@@ -30,7 +30,7 @@ class UsernameBox(ft.UserControl):
         self.button_ignore = ft.ElevatedButton(text="Hide",on_click=hide_button_clicked)#--> Krybei to ft.Row
         
         #Entered
-        self.TextBox= ft.Text(text_align=ft.TextAlign.LEFT,size=20)
+        self.TextBox= ft.Text(text_align=ft.TextAlign.LEFT,size=20,value="Guest")
         
     
     def build(self):

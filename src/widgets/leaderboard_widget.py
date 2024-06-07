@@ -39,13 +39,8 @@ class Leaderboard(ft.UserControl):
             RankBox(),#9
             RankBox()#10
         ]
-    def build(self):
-        #Title Box Attributes
-        for box in self.rank_boxes[0].TextList:
-            box.size = 23
-            box.weight = ft.FontWeight.BOLD
-            
-        #Populate RankBoxes
+        
+    def populate(self):
         for rank in self.leaderboard:
             if rank == '1':
                 #Gold
@@ -66,6 +61,15 @@ class Leaderboard(ft.UserControl):
             self.rank_boxes[int(rank)].rankText.value = rank
             self.rank_boxes[int(rank)].nameText.value =  self.leaderboard[rank][0]
             self.rank_boxes[int(rank)].scoreText.value = self.leaderboard[rank][1]
+    
+    def build(self):
+        #Title Box Attributes
+        for box in self.rank_boxes[0].TextList:
+            box.size = 23
+            box.weight = ft.FontWeight.BOLD
+            
+        #Populate RankBoxes
+        self.populate()
         
         self.container = ft.Container(content=ft.Column(controls= self.rank_boxes,
                                                         expand=1,

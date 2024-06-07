@@ -35,7 +35,7 @@ def leaderboard_placement(leaderboard,name ,score ):
                 print("Placement checked(*)")
                 return
         else:
-            if (leaderboard[iterator][1]<score<leaderboard[str(int(iterator)-1)][1]) or (leaderboard[iterator][1]<score==leaderboard[iterator-1][1]) :
+            if (leaderboard[iterator][1]<score<leaderboard[str(int(iterator)-1)][1]) or (leaderboard[iterator][1]<score==leaderboard[str(int(iterator)-1)][1]) :
                 #Move down
                 move_lower(leaderboard,int(iterator))
                 leaderboard[iterator] = [name,score]

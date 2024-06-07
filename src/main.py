@@ -22,10 +22,9 @@ class MainApp(ft.UserControl):
     self.word_screen = WordScreen()
     self.keyboard = KeyBoard(key_handler=self.handle_keypress, language= current_language )
     self.userbox = UsernameBox()
-    #Gia prosbash sto name string:
-    #self.userbox.Textbox.value
     self.leaderboard_dict = populate_leaderboard_dict()
     self.leader_board = Leaderboard(self.leaderboard_dict)
+    self.score = 0
     self.main_screen = Screen()
     self.word = getRandomWord()
 
@@ -136,12 +135,23 @@ class MainApp(ft.UserControl):
           
         #Edw prepei na mpei o kwdikas gia reset tou programmatos se periptwsh nikhs
         if response == [1,1,1,1,1]:
-          print("\nYou won, yay!!\n")
+          print("You won, yay!!\n")
+          self.score+=1
+          print(f"Score: {self.score}")
+          self.reset()
           
         #Edw prepei na mpei o kwdikas gia reset tou programmatos se periptwsh htas
         if (self.word_screen.current_row==6) and (response != [1,1,1,1,1]):
-          print("\nYou lost :(\n")
-          time.sleep(3)
+          print("You lost :(\n")
+          time.sleep(1)
+          leaderboard_placement(self.leaderboard_dict,self.userbox.textfield.value,self.score)
+          save_leaderboard(self.leaderboard_dict)
+          #Problhma sto reset tou leaderboard
+          ################################
+          self.leader_board.populate()
+          self.leader_board.update()
+          ################################
+          self.score = 0
           self.reset()
           
     else:
