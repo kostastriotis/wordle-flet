@@ -12,6 +12,7 @@ correct_color = '#6ca965'
 wrong_position_color = '#c8b653'
 non_existent_color = '#787c7f'
 current_language = "English"
+reset_color = ft.colors.GREY_300
 
 
 class MainApp(ft.UserControl):
@@ -140,11 +141,37 @@ class MainApp(ft.UserControl):
         #Edw prepei na mpei o kwdikas gia reset tou programmatos se periptwsh htas
         if (self.word_screen.current_row==6) and (response != [1,1,1,1,1]):
           print("\nYou lost :(\n")
+          time.sleep(3)
+          self.reset()
           
-   
-   
     else:
       self.word_screen.addChar(data)
+
+  def reset(self):
+    #Adeiasma twn box & Reset to xrwma
+    for word_box in self.word_screen.word_boxes:
+      for char_box in word_box.char_boxes:
+        word_box.rmChar()
+        char_box.reset_position()
+    
+    #Keyboard Reset
+    if current_language == "English" :
+      for key in self.keyboard.list_of_english_keys:
+          key.bgcolor = reset_color
+          key.content.color = ft.colors.BLACK
+          self.keyboard.update()
+    else:
+      for key in self.keyboard.list_of_greek_keys:
+          key.bgcolor = reset_color
+          key.content.color = ft.colors.BLACK
+          self.keyboard.update()
+    
+    #Epistrefoume thn eisodo sthn arxh twn box
+    self.word_screen.current_row = 0
+    self.word_screen.word_boxes[0].current_char = 0
+    
+    #Neo word
+    self.word = getRandomWord()
 
   def build(self):
     return ft.Column(controls=[self.logo, self.main_screen, self.word_screen, self.keyboard,self.userbox,self.leader_board],

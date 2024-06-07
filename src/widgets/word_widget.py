@@ -50,6 +50,18 @@ class CharBox(ft.UserControl):
     time.sleep(0.05)
     self.main.scale = 1
     self.update()
+    
+  def reset_position(self):
+    self.main.animate_scale = ft.animation.Animation(0, ft.AnimationCurve.BOUNCE_IN)
+    self.main.scale = 0
+    self.main.bgcolor = ft.colors.WHITE
+    self.text.color = ft.colors.BLACK
+    self.main.border = None
+    self.update()
+    self.main.animate_scale = ft.animation.Animation(700, ft.AnimationCurve.BOUNCE_OUT)
+    time.sleep(0.05)
+    self.main.scale = 1
+    self.update()
   
 
 
