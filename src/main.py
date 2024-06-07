@@ -21,6 +21,8 @@ class MainApp(ft.UserControl):
     self.word_screen = WordScreen()
     self.keyboard = KeyBoard(key_handler=self.handle_keypress, language= current_language )
     self.userbox = UsernameBox()
+    #Gia prosbash sto name string:
+    #self.userbox.Textbox.value
     self.leaderboard_dict = populate_leaderboard_dict()
     self.leader_board = Leaderboard(self.leaderboard_dict)
     self.main_screen = Screen()
@@ -121,8 +123,8 @@ class MainApp(ft.UserControl):
 
 
 
-          if self.word_screen.current_row < 5:
-            self.word_screen.current_row += 1 
+
+          self.word_screen.current_row += 1 
         
         else: 
           self.main_screen.error_handler.visible = True
@@ -131,7 +133,14 @@ class MainApp(ft.UserControl):
           self.main_screen.error_handler.visible = False
           self.main_screen.error_handler.update()
           
-         #Edw
+        #Edw prepei na mpei o kwdikas gia reset tou programmatos se periptwsh nikhs
+        if response == [1,1,1,1,1]:
+          print("\nYou won, yay!!\n")
+          
+        #Edw prepei na mpei o kwdikas gia reset tou programmatos se periptwsh htas
+        if (self.word_screen.current_row==6) and (response != [1,1,1,1,1]):
+          print("\nYou lost :(\n")
+          
    
    
     else:

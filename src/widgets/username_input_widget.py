@@ -7,7 +7,7 @@ class UsernameBox(ft.UserControl):
         #Functions Start
         def submit_button_clicked(e):
             if self.textfield.value!='':
-                self.TextBox.value = f"User: {self.textfield.value}"
+                self.TextBox.value = f"Hello {self.textfield.value}!"
                 while self.control!=[]:
                     self.control.pop()
                 self.control.append(self.TextBox)
