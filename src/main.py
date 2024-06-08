@@ -243,7 +243,7 @@ async def main(page: ft.Page):
       "Clear-Sans-Medium": "ClearSans-Medium.ttf"
   }
   # page.theme = ft.Theme(font_family="Clear-Sans-Medium")
-  page.theme_mode = ft.ThemeMode.LIGHT
+  page.theme_mode = ft.ThemeMode.SYSTEM
   page.title = "Wordle Game"
   page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
   page.scroll = ft.ScrollMode.ADAPTIVE
