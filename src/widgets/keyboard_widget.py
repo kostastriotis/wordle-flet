@@ -9,9 +9,9 @@ class Key(ft.Container):
     super().__init__()
     self.content = ft.Text(size=24,
                            weight=ft.FontWeight.W_700,
-                           color=ft.colors.BLACK)
+                           color=ft.colors.ON_SECONDARY_CONTAINER)
     self.alignment = ft.alignment.center
-    self.bgcolor = ft.colors.GREY_300
+    self.bgcolor = ft.colors.SECONDARY_CONTAINER
     # self.width = 54
     self.height = keyHeight
     self.expand = 1

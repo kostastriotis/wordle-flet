@@ -26,7 +26,7 @@ def dictionaryCheck(word: str):
   # Check if the word is in the dictionary.json file.
   # Return True or False.
 
-  f = open('targets.json', 'r', encoding='utf-8')
+  f = open('dictionary.json', 'r', encoding='utf-8')
   dictionary = json.load(f)
   
   

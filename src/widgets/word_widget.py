@@ -54,9 +54,9 @@ class CharBox(ft.UserControl):
   def reset_position(self):
     self.main.animate_scale = ft.animation.Animation(0, ft.AnimationCurve.BOUNCE_IN)
     self.main.scale = 0
-    self.main.bgcolor = ft.colors.WHITE
-    self.text.color = ft.colors.BLACK
-    self.main.border = None
+    self.main.bgcolor = ft.colors.SECONDARY_CONTAINER
+    self.text.color = ft.colors.ON_SECONDARY_CONTAINER
+    self.main.border = ft.border.all(2, ft.colors.GREY)
     self.update()
     self.main.animate_scale = ft.animation.Animation(700, ft.AnimationCurve.BOUNCE_OUT)
     time.sleep(0.05)
@@ -70,18 +70,18 @@ class CharBox(ft.UserControl):
       "",
       size=32,  # s:18, l:32
       weight=ft.FontWeight.W_700,
-      color=ft.colors.BLACK)
+      color=ft.colors.ON_SECONDARY_CONTAINER)
 
     self.main = ft.Container(
       content=self.text,
       alignment=ft.alignment.center,
-      bgcolor=ft.colors.GREY_50,
+      bgcolor=ft.colors.SECONDARY_CONTAINER,
       width=boxSide,
       height=boxSide,
       # expand=1,
       margin=0,
       # aspect_ratio=1,
-      border=ft.border.all(2, ft.colors.GREY_300),
+      border=ft.border.all(2, ft.colors.GREY),
       border_radius=5,
       scale = ft.transform.Scale(scale=1),
       animate_scale= ft.animation.Animation(50, ft.AnimationCurve.BOUNCE_IN))
@@ -125,7 +125,7 @@ class WordBox(ft.UserControl):
   def borders(self):
     for i in range(0,5):
       if self.char_boxes[i].text.value == "":
-        self.char_boxes[i].main.border = ft.border.all(2, ft.colors.GREY_300)
+        self.char_boxes[i].main.border = ft.border.all(2, ft.colors.GREY)
         self.char_boxes[i].main.update()
       else:
         self.char_boxes[i].main.border = ft.border.all(2, ft.colors.GREY)
