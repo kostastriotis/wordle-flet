@@ -25,6 +25,8 @@ def leaderboard_placement(leaderboard,name ,score ):
         This function scans through the provided leaderboard dictionary comparing the players score with the dictionary's and calls the function move_lower to place them in the correct spot if needed.
         
     '''
+    if name =='':
+        name="Guest"
     
     for iterator in leaderboard:
         if iterator == '1':
@@ -77,3 +79,4 @@ def save_leaderboard(leaderboard):
     with open("leaderboard.json","w") as outfile:
         json.dump(leaderboard, outfile)
     print("Save successfull(*)")
+    outfile.close()

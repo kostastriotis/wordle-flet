@@ -150,8 +150,6 @@ class MainApp(ft.UserControl):
           print("You won, yay!!\n")
           self.score += 1
           print(f"Score: {self.score}")
-          ###
-          ###
           self.reset()
 
         #Edw prepei na mpei o kwdikas gia reset tou programmatos se periptwsh htas
@@ -162,14 +160,11 @@ class MainApp(ft.UserControl):
           leaderboard_placement(self.leaderboard_dict,
                                 self.userbox.textfield.value, self.score)
           save_leaderboard(self.leaderboard_dict)
-          #Problhma sto reset tou leaderboard
-          ################################
           self.leader_board.populate()
-          self.leader_board.update()
+          for rankbox in self.leader_board.rank_boxes:
+            for tbox in rankbox.TextList:
+              tbox.update()
 
-          ################################
-
-          ###
           def close_dlg(e):
             dlg_modal.open = False
             self.root_page.update()
