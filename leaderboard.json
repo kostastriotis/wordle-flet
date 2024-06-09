@@ -1,11 +1,1 @@
-{
-"1": ["Placeholder Rank 1", 100],
-"2": ["Placeholder Rank 2", 90],
-"3": ["Placeholder Rank 3", 80],
-"4": ["Placeholder Rank 4", 70],
-"5": ["Placeholder Rank 5", 60], 
-"6": ["Placeholder Rank 6", 50], 
-"7": ["Placeholder Rank 7", 40], 
-"8": ["Placeholder Rank 8", 30], 
-"9": ["Placeholder Rank 9", 20], 
-"10": ["Placeholder Rank 10", 10]}
+{"1": ["Placeholder Rank 1", 100], "2": ["Placeholder Rank 2", 90], "3": ["Placeholder Rank 3", 80], "4": ["Placeholder Rank 4", 70], "5": ["Placeholder Rank 5", 60], "6": ["Placeholder Rank 6", 50], "7": ["Placeholder Rank 7", 40], "8": ["Placeholder Rank 8", 30], "9": ["Placeholder Rank 9", 20], "10": ["Placeholder Rank 10", 10]}

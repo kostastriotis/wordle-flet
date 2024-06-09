@@ -4,6 +4,7 @@ from widgets.word_widget import *
 from widgets.keyboard_widget import *
 from widgets.leaderboard_widget import *
 from widgets.username_input_widget import *
+from widgets.score_widget import *
 from helpers.size_aware import *
 from functions import *
 from leaderboard_functions import *
@@ -40,6 +41,7 @@ class MainApp(ft.UserControl):
     self.leaderboard_dict = populate_leaderboard_dict()
     self.leader_board = Leaderboard(self.leaderboard_dict)
     self.score = 0
+    self.scorebox = UserScoreBox()
     self.main_screen = Screen()
     self.word = getRandomWord()
 
@@ -188,6 +190,10 @@ class MainApp(ft.UserControl):
       self.word_screen.addChar(data)
 
   def reset(self):
+    #Update Scorebox
+    self.scorebox.ScoreBox.value= f"Score: {self.score}"
+    self.scorebox.ScoreBox.update()
+
     #Adeiasma twn box & Reset to xrwma
     for word_box in self.word_screen.word_boxes:
       for char_box in word_box.char_boxes:
@@ -216,7 +222,7 @@ class MainApp(ft.UserControl):
   def build(self):
     return ft.Column(
         controls=[
-            self.main_screen, self.word_screen, self.keyboard, self.userbox,
+            self.main_screen, self.word_screen, self.keyboard,self.scorebox ,self.userbox,
             self.leader_board
         ],
         horizontal_alignment=ft.CrossAxisAlignment.CENTER,
