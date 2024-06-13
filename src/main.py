@@ -31,7 +31,7 @@ def showSnackBar(page: ft.Page, text: str, iserror:bool):
   else:
     page.snack_bar = ft.SnackBar(ft.Text(text,
                                         size=16,
-                                        color=ft.colors.ON_ERROR_CONTAINER,
+                                        color=ft.colors.WHITE,
                                         weight=ft.FontWeight.BOLD),
                                 bgcolor="#6ca965",
                                 duration= 2000)
