@@ -18,14 +18,26 @@ current_language = "English"
 reset_color = ft.colors.SECONDARY_CONTAINER
 
 
-def showSnackBar(page: ft.Page, text: str):
-  page.snack_bar = ft.SnackBar(ft.Text(text,
-                                       size=16,
-                                       color=ft.colors.ON_ERROR_CONTAINER,
-                                       weight=ft.FontWeight.BOLD),
-                               bgcolor=ft.colors.ERROR_CONTAINER)
-  page.snack_bar.open = True
-  page.update()
+def showSnackBar(page: ft.Page, text: str, iserror:bool):
+  if iserror:
+    page.snack_bar = ft.SnackBar(ft.Text(text,
+                                        size=16,
+                                        color=ft.colors.ON_ERROR_CONTAINER,
+                                        weight=ft.FontWeight.BOLD),
+                                bgcolor=ft.colors.ERROR_CONTAINER,
+                                duration= 2000)
+    page.snack_bar.open = True
+    page.update()
+  else:
+    page.snack_bar = ft.SnackBar(ft.Text(text,
+                                        size=16,
+                                        color=ft.colors.ON_ERROR_CONTAINER,
+                                        weight=ft.FontWeight.BOLD),
+                                bgcolor="#6ca965",
+                                duration= 2000)
+    page.snack_bar.open = True
+    page.update()
+
 
 
 class MainApp(ft.UserControl):
@@ -140,7 +152,7 @@ class MainApp(ft.UserControl):
           self.word_screen.current_row += 1
 
         else:
-          showSnackBar(self.root_page, "Not in Word List")
+          showSnackBar(self.root_page, "Not in Word List",1)
           # self.main_screen.error_handler.visible = True
           # self.main_screen.error_handler.update()
           # time.sleep(2)
@@ -149,6 +161,7 @@ class MainApp(ft.UserControl):
 
         #Edw prepei na mpei o kwdikas gia reset tou programmatos se periptwsh nikhs
         if response == [1, 1, 1, 1, 1]:
+          showSnackBar(self.root_page, "Correct Word",0)
           print("You won, yay!!\n")
           self.score += 1
           print(f"Score: {self.score}")
