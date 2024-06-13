@@ -189,7 +189,7 @@ class MainApp(ft.UserControl):
           dlg_modal = ft.AlertDialog(
               modal=True,
               title=ft.Text("You lost ☹️"),
-              content=ft.Text("Your score was: " + str(self.score)),
+              content=ft.Text(f"Your score was: {str(self.score)}\nThe word was: {self.word}"),
               actions=[ft.TextButton("Replay", on_click=close_dlg)],
               actions_alignment=ft.MainAxisAlignment.END,
               on_dismiss=lambda e: print("Modal dialog dismissed!"),
