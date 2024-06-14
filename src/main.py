@@ -50,8 +50,10 @@ class MainApp(ft.UserControl):
     self.keyboard = KeyBoard(key_handler=self.handle_keypress,
                              language=current_language)
     self.userbox = UsernameBox()
-    self.leaderboard_dict = populate_leaderboard_dict()
-    self.leader_board = Leaderboard(self.leaderboard_dict)
+    self.leaderboard_db = load_database()
+    # self.leaderboard_dict = populate_leaderboard_dict()
+    # self.leader_board = Leaderboard(self.leaderboard_dict)
+    self.leader_board = Leaderboard(self.leaderboard_db)
     self.score = 0
     self.scorebox = UserScoreBox()
     self.main_screen = Screen()
@@ -172,14 +174,8 @@ class MainApp(ft.UserControl):
                                                     != [1, 1, 1, 1, 1]):
           print("You lost :(\n")
           time.sleep(1)
-          leaderboard_placement(self.leaderboard_dict,
-                                self.userbox.textfield.value, self.score)
-          save_leaderboard(self.leaderboard_dict)
-          self.leader_board.populate()
-          for rankbox in self.leader_board.rank_boxes:
-            for tbox in rankbox.TextList:
-              tbox.update()
-
+          leaderboard_db_placement(self.leaderboard_db,self.userbox.textfield.value,self.score)
+          self.leader_board.update_boxes()
           def close_dlg(e):
             dlg_modal.open = False
             self.root_page.update()

@@ -1,4 +1,5 @@
 import flet as ft
+import tinydb 
 #Widget gia emfanish tou leaderboard
 
 #Gold Hex: #FFD700
@@ -23,9 +24,9 @@ class RankBox(ft.UserControl):
     
 
 class Leaderboard(ft.UserControl):
-    def __init__(self,leaderboard_dict:dict):
+    def __init__(self,l_db = tinydb.TinyDB):
         super().__init__()
-        self.leaderboard = leaderboard_dict
+        self.leaderboard_db = l_db
         self.rank_boxes = [
             RankBox(),#gia titlos 0
             RankBox(),#1
@@ -41,26 +42,33 @@ class Leaderboard(ft.UserControl):
         ]
         
     def populate(self):
-        for rank in self.leaderboard:
-            if rank == '1':
-                #Gold
-                for box in self.rank_boxes[int(rank)].TextList:
+        l_Query = tinydb.Query()
+        
+        for rank in range(1,11):
+            if rank == 1:
+                for box in self.rank_boxes[rank].TextList:
                     box.color = "#FFD700"
                     box.weight = ft.FontWeight.W_600
-            if rank == '2':
+            if rank == 2:
                 #Silver
-                for box in self.rank_boxes[int(rank)].TextList:
+                for box in self.rank_boxes[rank].TextList:
                     box.color = "#C0C0C0"
                     box.weight = ft.FontWeight.W_600
-            if rank == '3':
+            if rank == 3:
                 #Bronze
-                for box in self.rank_boxes[int(rank)].TextList:
+                for box in self.rank_boxes[rank].TextList:
                     box.color = "#CD7F32"
                     box.weight = ft.FontWeight.W_600
-            
-            self.rank_boxes[int(rank)].rankText.value = rank
-            self.rank_boxes[int(rank)].nameText.value =  self.leaderboard[rank][0]
-            self.rank_boxes[int(rank)].scoreText.value = self.leaderboard[rank][1]
+            self.rank_boxes[rank].rankText.value = rank
+            self.rank_boxes[rank].nameText.value =  self.leaderboard_db.all()[rank-1]['name']
+            self.rank_boxes[rank].scoreText.value = self.leaderboard_db.all()[rank-1]['score']
+    
+    def update_boxes(self):
+        self.populate()
+        for box in self.rank_boxes:
+            for item in box.TextList:
+                item.update()
+        print('Boxes updated(*)')
     
     def build(self):
         #Title Box Attributes
