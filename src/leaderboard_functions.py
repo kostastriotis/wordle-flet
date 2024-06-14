@@ -6,7 +6,7 @@ def load_database():
     '''
     Loads the leaderboard database
     '''
-    db = tinydb.TinyDB("ldb.json")
+    db = tinydb.TinyDB("db/ldb.json")
     if not db.all():
         #Make empty db
         db.truncate()
@@ -40,7 +40,7 @@ def leaderboard_db_placement(l_db:tinydb.TinyDB ,name: str,score:int):
         name ="Guest"
        
     l_Query = tinydb.Query()
-    l_db = tinydb.TinyDB('ldb.json')
+    l_db = tinydb.TinyDB('db/ldb.json')
     for place in l_db:
         #place -->dictionary {"name":<name str>,"score":<score int>}
         if score>=place["score"]:
@@ -68,6 +68,6 @@ def move_down_db(l_db : tinydb.TinyDB, rank : int):
     '''
     
     l_Query = tinydb.Query()
-    for place in range(9,rank,-1):
-        l_db.update({"name":l_db.all()[place]["name"],"score":l_db.all()[place]["score"]},l_Query.rank == place+1)
+    for place in range(9,rank-1,-1):
+        l_db.update({"name":l_db.all()[place-1]["name"],"score":l_db.all()[place-1]["score"]},l_Query.rank == place+1)
     print("Db lowered(*)")
