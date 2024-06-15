@@ -242,16 +242,16 @@ class MainApp(ft.UserControl):
 
 async def main(page: ft.Page):
   page.fonts = {
-      "Arb": "AbrilFatface-Regular.otf",
-      "Oswald": "Oswald-Bold.ttf",
-      "Poppins-Regular": "Poppins-Regular.otf",
-      "Poppins-Bold": "Poppins-Bold.otf",
-      "Poppins-Black": "Poppins-Black.otf",
-      "Comforta-Regular": "Comfortaa_Regular.ttf",
-      "Comforta-Bold": "Comfortaa_Bold.ttf",
-      "Clear-Sans-Regular": "ClearSans-Regular.ttf",
-      "Clear-Sans-Bold": "ClearSans-Bold.ttf",
-      "Clear-Sans-Medium": "ClearSans-Medium.ttf"
+      "Arb": "fonts/AbrilFatface-Regular.otf",
+      "Oswald": "fonts/Oswald-Bold.ttf",
+      "Poppins-Regular": "fonts/Poppins-Regular.otf",
+      "Poppins-Bold": "fonts/Poppins-Bold.otf",
+      "Poppins-Black": "fonts/Poppins-Black.otf",
+      "Comforta-Regular": "fonts/Comfortaa_Regular.ttf",
+      "Comforta-Bold": "fonts/Comfortaa_Bold.ttf",
+      "Clear-Sans-Regular": "fonts/ClearSans-Regular.ttf",
+      "Clear-Sans-Bold": "fonts/ClearSans-Bold.ttf",
+      "Clear-Sans-Medium": "fonts/ClearSans-Medium.ttf"
   }
   # page.theme = ft.Theme(font_family="Clear-Sans-Medium")
   page.theme_mode = ft.ThemeMode.SYSTEM
@@ -263,4 +263,4 @@ async def main(page: ft.Page):
   page.add(MainApp(page))
 
 
-ft.app(target=main, view=ft.AppView.WEB_BROWSER, port=8080, assets_dir="Fonts")
+ft.app(target=main, view=ft.AppView.WEB_BROWSER, port=8080, assets_dir="assets")
