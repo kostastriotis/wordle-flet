@@ -241,19 +241,7 @@ class MainApp(ft.UserControl):
 
 
 async def main(page: ft.Page):
-  page.fonts = {
-      "Arb": "fonts/AbrilFatface-Regular.otf",
-      "Oswald": "fonts/Oswald-Bold.ttf",
-      "Poppins-Regular": "fonts/Poppins-Regular.otf",
-      "Poppins-Bold": "fonts/Poppins-Bold.otf",
-      "Poppins-Black": "fonts/Poppins-Black.otf",
-      "Comforta-Regular": "fonts/Comfortaa_Regular.ttf",
-      "Comforta-Bold": "fonts/Comfortaa_Bold.ttf",
-      "Clear-Sans-Regular": "fonts/ClearSans-Regular.ttf",
-      "Clear-Sans-Bold": "fonts/ClearSans-Bold.ttf",
-      "Clear-Sans-Medium": "fonts/ClearSans-Medium.ttf"
-  }
-  # page.theme = ft.Theme(font_family="Clear-Sans-Medium")
+  page.fonts = {"Arb": "fonts/AbrilFatface-Regular.otf"}
   page.theme_mode = ft.ThemeMode.SYSTEM
   page.title = "Wordle Game"
   page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
