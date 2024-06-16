@@ -8,13 +8,11 @@ from widgets.score_widget import *
 from helpers.size_aware import *
 from functions import *
 from leaderboard_functions import *
-from screen import *
 from widgets.custom_appbar import CustomAppBar
 
 correct_color = '#6ca965'
 wrong_position_color = '#c8b653'
 non_existent_color = '#787c7f'
-current_language = "English"
 reset_color = ft.colors.SECONDARY_CONTAINER
 
 
@@ -47,8 +45,7 @@ class MainApp(ft.UserControl):
     self.root_page = root_page
     # self.logo = wordle_logo()
     self.word_screen = WordScreen()
-    self.keyboard = KeyBoard(key_handler=self.handle_keypress,
-                             language=current_language)
+    self.keyboard = KeyBoard(key_handler=self.handle_keypress)
     self.userbox = UsernameBox()
     self.leaderboard_db = load_database()
     # self.leaderboard_dict = populate_leaderboard_dict()
@@ -56,7 +53,6 @@ class MainApp(ft.UserControl):
     self.leader_board = Leaderboard(self.leaderboard_db)
     self.score = 0
     self.scorebox = UserScoreBox()
-    self.main_screen = Screen()
     self.word = getRandomWord()
 
   def handle_keypress(self, data):
@@ -81,74 +77,49 @@ class MainApp(ft.UserControl):
             if response[i] == 1:
               self.word_screen.word_boxes[
                   self.word_screen.current_row].char_boxes[i].right_position()
+              
             elif response[i] == 0:
               self.word_screen.word_boxes[
                   self.word_screen.current_row].char_boxes[i].wrong_position()
+              
             else:
               self.word_screen.word_boxes[
                   self.word_screen.current_row].char_boxes[i].not_existent()
+              
 
           for i in range(0, 5):
             if response[i] == 1:
-              if current_language == "English":
-                for key in self.keyboard.list_of_english_keys:
-                  if key.content.value == self.word_screen.word_boxes[
-                      self.word_screen.current_row].char_boxes[i].text.value:
-                    key.bgcolor = correct_color
-                    key.change_color()
-                    self.keyboard.update()
-              else:
-                for key in self.keyboard.list_of_greek_keys:
-                  if key.content.value == self.word_screen.word_boxes[
-                      self.word_screen.current_row].char_boxes[i].text.value:
-                    key.bgcolor = correct_color
-                    key.change_color()
-                    self.keyboard.update()
+              
+              for key in self.keyboard.list_of_english_keys:
+                if key.content.value == self.word_screen.word_boxes[
+                    self.word_screen.current_row].char_boxes[i].text.value:
+                  key.bgcolor = correct_color
+                  key.change_color()
+                  self.keyboard.update()
 
             elif response[i] == 0:
-              if current_language == "English":
-                for key in self.keyboard.list_of_english_keys:
-                  if key.content.value == self.word_screen.word_boxes[
-                      self.word_screen.current_row].char_boxes[i].text.value:
-                    if key.bgcolor != ft.colors.SECONDARY_CONTAINER:
-                      continue
-                    else:
-                      key.bgcolor = wrong_position_color
-                      key.change_color()
-                      self.keyboard.update()
-              else:
-                for key in self.keyboard.list_of_greek_keys:
-                  if key.content.value == self.word_screen.word_boxes[
-                      self.word_screen.current_row].char_boxes[i].text.value:
-                    if key.bgcolor != ft.colors.SECONDARY_CONTAINER:
-                      continue
-                    else:
-                      key.bgcolor = wrong_position_color
-                      key.change_color()
-                      self.keyboard.update()
+              
+              for key in self.keyboard.list_of_english_keys:
+                if key.content.value == self.word_screen.word_boxes[
+                    self.word_screen.current_row].char_boxes[i].text.value:
+                  if key.bgcolor != ft.colors.SECONDARY_CONTAINER:
+                    continue
+                  else:
+                    key.bgcolor = wrong_position_color
+                    key.change_color()
+                    self.keyboard.update()
 
             else:
-              if current_language == "English":
-                for key in self.keyboard.list_of_english_keys:
-                  if key.content.value == self.word_screen.word_boxes[
-                      self.word_screen.current_row].char_boxes[i].text.value:
-                    if key.bgcolor != ft.colors.SECONDARY_CONTAINER:
-                      continue
-                    else:
-                      key.bgcolor = non_existent_color
-                      key.change_color()
-                      self.keyboard.update()
-
-              else:
-                for key in self.keyboard.list_of_greek_keys:
-                  if key.content.value == self.word_screen.word_boxes[
-                      self.word_screen.current_row].char_boxes[i].text.value:
-                    if key.bgcolor != ft.colors.SECONDARY_CONTAINER:
-                      continue
-                    else:
-                      key.bgcolor = non_existent_color
-                      key.change_color()
-                      self.keyboard.update()
+              
+              for key in self.keyboard.list_of_english_keys:
+                if key.content.value == self.word_screen.word_boxes[
+                    self.word_screen.current_row].char_boxes[i].text.value:
+                  if key.bgcolor != ft.colors.SECONDARY_CONTAINER:
+                    continue
+                  else:
+                    key.bgcolor = non_existent_color
+                    key.change_color()
+                    self.keyboard.update()
 
           self.word_screen.current_row += 1
 
@@ -211,16 +182,10 @@ class MainApp(ft.UserControl):
           char_box.reset_position()
 
     #Keyboard Reset
-    if current_language == "English":
-      for key in self.keyboard.list_of_english_keys:
-        key.bgcolor = reset_color
-        key.content.color = ft.colors.ON_SECONDARY_CONTAINER
-        self.keyboard.update()
-    else:
-      for key in self.keyboard.list_of_greek_keys:
-        key.bgcolor = reset_color
-        key.content.color = ft.colors.ON_SECONDARY_CONTAINER
-        self.keyboard.update()
+    for key in self.keyboard.list_of_english_keys:
+      key.bgcolor = reset_color
+      key.content.color = ft.colors.ON_SECONDARY_CONTAINER
+      self.keyboard.update()
 
     #Epistrefoume thn eisodo sthn arxh twn box
     self.word_screen.current_row = 0
@@ -232,34 +197,26 @@ class MainApp(ft.UserControl):
   def build(self):
     return ft.Column(
         controls=[
-            self.main_screen, self.word_screen, self.keyboard,self.scorebox ,self.userbox,
+            self.word_screen, self.keyboard,self.scorebox ,self.userbox,
             self.leader_board
         ],
         horizontal_alignment=ft.CrossAxisAlignment.CENTER,
-        spacing=50,
+        spacing=70,
     )
 
 
 async def main(page: ft.Page):
-  page.fonts = {
-      "Arb": "fonts/AbrilFatface-Regular.otf",
-      "Oswald": "fonts/Oswald-Bold.ttf",
-      "Poppins-Regular": "fonts/Poppins-Regular.otf",
-      "Poppins-Bold": "fonts/Poppins-Bold.otf",
-      "Poppins-Black": "fonts/Poppins-Black.otf",
-      "Comforta-Regular": "fonts/Comfortaa_Regular.ttf",
-      "Comforta-Bold": "fonts/Comfortaa_Bold.ttf",
-      "Clear-Sans-Regular": "fonts/ClearSans-Regular.ttf",
-      "Clear-Sans-Bold": "fonts/ClearSans-Bold.ttf",
-      "Clear-Sans-Medium": "fonts/ClearSans-Medium.ttf"
-  }
-  # page.theme = ft.Theme(font_family="Clear-Sans-Medium")
+  page.fonts = {"Arb": "fonts/AbrilFatface-Regular.otf",
+                "ManX": "fonts/Manrope-ExtraBold.ttf",
+                "Man": "fonts/Manrope-Bold.ttf"}
   page.theme_mode = ft.ThemeMode.SYSTEM
+  page.theme = ft.Theme(font_family="Man")
   page.title = "Wordle Game"
   page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
   page.scroll = ft.ScrollMode.ADAPTIVE
   # create app control and add it to the page
   page.appbar = CustomAppBar(page)
+  page.spacing = 30
   page.add(MainApp(page))
 
 
