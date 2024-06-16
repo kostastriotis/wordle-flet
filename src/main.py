@@ -14,7 +14,6 @@ from widgets.custom_appbar import CustomAppBar
 correct_color = '#6ca965'
 wrong_position_color = '#c8b653'
 non_existent_color = '#787c7f'
-current_language = "English"
 reset_color = ft.colors.SECONDARY_CONTAINER
 
 
@@ -47,8 +46,7 @@ class MainApp(ft.UserControl):
     self.root_page = root_page
     # self.logo = wordle_logo()
     self.word_screen = WordScreen()
-    self.keyboard = KeyBoard(key_handler=self.handle_keypress,
-                             language=current_language)
+    self.keyboard = KeyBoard(key_handler=self.handle_keypress)
     self.userbox = UsernameBox()
     self.leaderboard_db = load_database()
     # self.leaderboard_dict = populate_leaderboard_dict()
@@ -81,74 +79,49 @@ class MainApp(ft.UserControl):
             if response[i] == 1:
               self.word_screen.word_boxes[
                   self.word_screen.current_row].char_boxes[i].right_position()
+              
             elif response[i] == 0:
               self.word_screen.word_boxes[
                   self.word_screen.current_row].char_boxes[i].wrong_position()
+              
             else:
               self.word_screen.word_boxes[
                   self.word_screen.current_row].char_boxes[i].not_existent()
+              
 
           for i in range(0, 5):
             if response[i] == 1:
-              if current_language == "English":
-                for key in self.keyboard.list_of_english_keys:
-                  if key.content.value == self.word_screen.word_boxes[
-                      self.word_screen.current_row].char_boxes[i].text.value:
-                    key.bgcolor = correct_color
-                    key.change_color()
-                    self.keyboard.update()
-              else:
-                for key in self.keyboard.list_of_greek_keys:
-                  if key.content.value == self.word_screen.word_boxes[
-                      self.word_screen.current_row].char_boxes[i].text.value:
-                    key.bgcolor = correct_color
-                    key.change_color()
-                    self.keyboard.update()
+              
+              for key in self.keyboard.list_of_english_keys:
+                if key.content.value == self.word_screen.word_boxes[
+                    self.word_screen.current_row].char_boxes[i].text.value:
+                  key.bgcolor = correct_color
+                  key.change_color()
+                  self.keyboard.update()
 
             elif response[i] == 0:
-              if current_language == "English":
-                for key in self.keyboard.list_of_english_keys:
-                  if key.content.value == self.word_screen.word_boxes[
-                      self.word_screen.current_row].char_boxes[i].text.value:
-                    if key.bgcolor != ft.colors.SECONDARY_CONTAINER:
-                      continue
-                    else:
-                      key.bgcolor = wrong_position_color
-                      key.change_color()
-                      self.keyboard.update()
-              else:
-                for key in self.keyboard.list_of_greek_keys:
-                  if key.content.value == self.word_screen.word_boxes[
-                      self.word_screen.current_row].char_boxes[i].text.value:
-                    if key.bgcolor != ft.colors.SECONDARY_CONTAINER:
-                      continue
-                    else:
-                      key.bgcolor = wrong_position_color
-                      key.change_color()
-                      self.keyboard.update()
+              
+              for key in self.keyboard.list_of_english_keys:
+                if key.content.value == self.word_screen.word_boxes[
+                    self.word_screen.current_row].char_boxes[i].text.value:
+                  if key.bgcolor != ft.colors.SECONDARY_CONTAINER:
+                    continue
+                  else:
+                    key.bgcolor = wrong_position_color
+                    key.change_color()
+                    self.keyboard.update()
 
             else:
-              if current_language == "English":
-                for key in self.keyboard.list_of_english_keys:
-                  if key.content.value == self.word_screen.word_boxes[
-                      self.word_screen.current_row].char_boxes[i].text.value:
-                    if key.bgcolor != ft.colors.SECONDARY_CONTAINER:
-                      continue
-                    else:
-                      key.bgcolor = non_existent_color
-                      key.change_color()
-                      self.keyboard.update()
-
-              else:
-                for key in self.keyboard.list_of_greek_keys:
-                  if key.content.value == self.word_screen.word_boxes[
-                      self.word_screen.current_row].char_boxes[i].text.value:
-                    if key.bgcolor != ft.colors.SECONDARY_CONTAINER:
-                      continue
-                    else:
-                      key.bgcolor = non_existent_color
-                      key.change_color()
-                      self.keyboard.update()
+              
+              for key in self.keyboard.list_of_english_keys:
+                if key.content.value == self.word_screen.word_boxes[
+                    self.word_screen.current_row].char_boxes[i].text.value:
+                  if key.bgcolor != ft.colors.SECONDARY_CONTAINER:
+                    continue
+                  else:
+                    key.bgcolor = non_existent_color
+                    key.change_color()
+                    self.keyboard.update()
 
           self.word_screen.current_row += 1
 
@@ -211,16 +184,10 @@ class MainApp(ft.UserControl):
           char_box.reset_position()
 
     #Keyboard Reset
-    if current_language == "English":
-      for key in self.keyboard.list_of_english_keys:
-        key.bgcolor = reset_color
-        key.content.color = ft.colors.ON_SECONDARY_CONTAINER
-        self.keyboard.update()
-    else:
-      for key in self.keyboard.list_of_greek_keys:
-        key.bgcolor = reset_color
-        key.content.color = ft.colors.ON_SECONDARY_CONTAINER
-        self.keyboard.update()
+    for key in self.keyboard.list_of_english_keys:
+      key.bgcolor = reset_color
+      key.content.color = ft.colors.ON_SECONDARY_CONTAINER
+      self.keyboard.update()
 
     #Epistrefoume thn eisodo sthn arxh twn box
     self.word_screen.current_row = 0
