@@ -84,14 +84,16 @@ class CharBox(ft.UserControl):
       border=ft.border.all(2, ft.colors.GREY),
       border_radius=5,
       scale = ft.transform.Scale(scale=1),
-      animate_scale= ft.animation.Animation(50, ft.AnimationCurve.BOUNCE_IN))
+      animate_scale= ft.animation.Animation(50, ft.AnimationCurve.BOUNCE_OUT))
     return self.main
   
   def animation1(self):
+    self.main.animate_scale = ft.animation.Animation(50, ft.AnimationCurve.BOUNCE_OUT)
     self.main.scale = 1.05
     self.update()
   
   def animation2(self):
+    self.main.animate_scale = ft.animation.Animation(50, ft.AnimationCurve.BOUNCE_OUT)
     self.main.scale = 1
     self.update()
 
@@ -109,7 +111,7 @@ class WordBox(ft.UserControl):
     if self.current_char < 5:
       self.char_boxes[self.current_char].animation1()
       self.char_boxes[self.current_char].updateChar(char)
-      self.char_boxes[self.current_char].main.border = ft.border.all(2, ft.colors.GREY)
+      self.char_boxes[self.current_char].main.border = ft.border.all(2, ft.colors.SECONDARY)
       self.char_boxes[self.current_char].update()
       time.sleep(0.05)
       self.char_boxes[self.current_char].animation2()
@@ -119,6 +121,8 @@ class WordBox(ft.UserControl):
     if self.current_char > 0:
       self.current_char -= 1
       self.char_boxes[self.current_char].updateChar("")
+      self.char_boxes[self.current_char].main.border = ft.border.all(2,ft.colors.GREY)
+      self.char_boxes[self.current_char].update()
       # self.word += char
 
 
