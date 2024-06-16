@@ -8,7 +8,6 @@ from widgets.score_widget import *
 from helpers.size_aware import *
 from functions import *
 from leaderboard_functions import *
-from screen import *
 from widgets.custom_appbar import CustomAppBar
 
 correct_color = '#6ca965'
@@ -54,7 +53,6 @@ class MainApp(ft.UserControl):
     self.leader_board = Leaderboard(self.leaderboard_db)
     self.score = 0
     self.scorebox = UserScoreBox()
-    self.main_screen = Screen()
     self.word = getRandomWord()
 
   def handle_keypress(self, data):
@@ -199,22 +197,26 @@ class MainApp(ft.UserControl):
   def build(self):
     return ft.Column(
         controls=[
-            self.main_screen, self.word_screen, self.keyboard,self.scorebox ,self.userbox,
+            self.word_screen, self.keyboard,self.scorebox ,self.userbox,
             self.leader_board
         ],
         horizontal_alignment=ft.CrossAxisAlignment.CENTER,
-        spacing=50,
+        spacing=70,
     )
 
 
 async def main(page: ft.Page):
-  page.fonts = {"Arb": "fonts/AbrilFatface-Regular.otf"}
+  page.fonts = {"Arb": "fonts/AbrilFatface-Regular.otf",
+                "ManX": "fonts/Manrope-ExtraBold.ttf",
+                "Man": "fonts/Manrope-Bold.ttf"}
   page.theme_mode = ft.ThemeMode.SYSTEM
+  page.theme = ft.Theme(font_family="Man")
   page.title = "Wordle Game"
   page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
   page.scroll = ft.ScrollMode.ADAPTIVE
   # create app control and add it to the page
   page.appbar = CustomAppBar(page)
+  page.spacing = 30
   page.add(MainApp(page))
 
 

@@ -27,7 +27,7 @@ class CustomAppBar(ft.AppBar):
         size=42,
         weight=ft.FontWeight.BOLD,
         color=ft.colors.ON_BACKGROUND,
-        font_family="Arb",
+        font_family="ManX",
     )
     self.center_title = True
     self.actions = [
